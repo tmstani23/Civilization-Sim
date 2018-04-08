@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <script>
+           
+           //create environment
+            //cities
+            //geography
+            //weather-day-night
+            //animals other ai
+
+           //Create Elite
+           let elite = [];
+           let army = []; 
+           //Create Populace
+           let populace = [];
+           //create hierarchy of objects with inheritance
+           //create lifeform constructor function
+           function Lifeform(name) {
+               this.name = name;
+               this.level = 1;
+               this.health = 500;
+               this.say = function (msg) {
+                   console.log(msg);
+               }
+            }
+            //create queen object
+            const queen = { 
+                health: 20,
+                
+                breed: function (type, number) {
+                    let offspring;
+                    
+                    for(let i = 0; i < number; i++){
+                        switch (type) {
+                            case "General" : 
+                                offspring = new General();
+                                army.push(offspring);
+                                break;
+                            case "Highpriest" :
+                                offspring = new Highpriest()
+                                elite.push(offspring);
+                                break;
+                            case "Soldier" : 
+                                offspring = new Soldier();
+                                offspring.reproduce();
+                                army.push(offspring);
+                                break;
+                            case "Governor" :
+                                offspring = new Governor();
+                                elite.push(offspring);
+                                break;
+                            case "Deacon" :
+                                offspring = new Deacon();
+                                elite.push(offspring);
+                                break;
+                            case "Intelligensia" :
+                                offspring = new Intelligensia();
+                                elite.push(offspring);
+                                break;
+                            case "Priest" :
+                                offspring = new Priest();
+                                populace.push(offspring);
+                                break;
+                            case "Artisan" :
+                                offspring = new Artisan();
+                                populace.push(offspring);
+                                break;
+                            case "Farmer" :
+                                offspring = new Farmer();
+                                populace.push(offspring);
+                                break;
+                            case "Slave" :
+                            offspring = new Slave();
+                            populace.push(offspring);
+                            break;
+                        }    
+                    }
+                
+                }
+            };
+            //Create General Constructor
+            function General(order) {
+                //Create a lifeform from the prototype:
+                Lifeform.call(this, randomName());
+                //Add new general specific properties:
+                this.order = order;
+                this.damage = 250;
+                this.speed = 10;
+                this.defense = 120;
+                this.train = queen.breed("Soldier", 200);
+                this.diplomacy = queen.breed("Governor", 2);
+            }
+
+            //Create Highpriest Constructor
+            function Highpriest(prayer) {
+                //Create a lifeform from the prototype:
+                Lifeform.call(this, randomName());
+                //Add new priest specific properties:
+                this.prayer = prayer;
+                this.damage = 10;
+                this.speed = 5;
+                this.defense = 40;
+
+            }
+            //Create Soldier Constructor
+            function Soldier() {
+                //Create a lifeform from the prototype:
+                Lifeform.call(this, randomName());
+                //Add new priest specific properties:
+                this.attackSkill;
+                this.damage = 50;
+                this.speed = 35;
+                this.defense = 35;
+                this.reproduce = function () {
+                    Math.random() < 0.20 ? queen.breed("Artisan", 5) :
+                        queen.breed("Farmer", 5);
+                }
+
+            }
+            //Create Governor Constructor
+            function Governor(diplomacy) {
+                //Create a lifeform from the prototype:
+                Lifeform.call(this, randomName());
+                //Add new priest specific properties:
+                this.diplomacy = diplomacy;
+                this.damage = 10;
+                this.speed = 5;
+                this.defense = 15;
+                this.conquer = queen.breed("Slave", 50);
+            }
+
+            //Create Deacon Constructor
+            function Deacon(admin) {
+                //Create a lifeform from the prototype:
+                Lifeform.call(this, randomName());
+                //Add new priest specific properties:
+                this.admin = admin;
+                this.damage = 5;
+                this.speed = 5;
+                this.defense = 10;
+                this.educate = queen.breed("Intelligensia", 10);
+            }
+            //Create Priest Constructor
+            function Priest(convert) {
+                //Create a lifeform from the prototype:
+                Lifeform.call(this, randomName());
+                //Add new priest specific properties:
+                this.convert = convert;
+                this.damage = 35;
+                this.speed = 25;
+                this.defense = 15;
+            }
+             //Create Farmer Constructor
+             function Farmer(farm) {
+                //Create a lifeform from the prototype:
+                Lifeform.call(this, randomName());
+                //Add new priest specific properties:
+                this.farm = farm;
+                this.damage = 15;
+                this.speed = 10;
+                this.defense = 20;
+            }
+             //Create Artisan Constructor
+             function Artisan(trade) {
+                //Create a lifeform from the prototype:
+                Lifeform.call(this, randomName());
+                //Add new priest specific properties:
+                this.trade = trade;
+                this.damage = 20;
+                this.speed = 15;
+                this.defense = 15;
+            }
+            //Create Slave Constructor
+            function Slave(toil) {
+                //Create a lifeform from the prototype:
+                Lifeform.call(this, randomName());
+                //Add new priest specific properties:
+                this.toil = toil;
+                this.damage = 25;
+                this.speed = 15;
+                this.defense = 10;
+            }
+            //Breed initial population:
+            //create 5 generals:
+            queen.breed("General", 5);
+            //create 5 High Priest objects
+            queen.breed("Highpriest", 5);
+            let randomPop = getRandomArbitrary(0, 5500);
+            let name = populace[randomPop].name;
+            let className = populace[randomPop].constructor.name;
+            let person = populace[randomPop];
+
+            person.say(`I am ${name}!  I am a ${className}!  I'm here to serve :(`);
+            
+            
+            console.log(army);
+            console.log(populace);
+            console.log(elite);
+            
+            
+            
+            //create 10 governer objects with inheritance from generals
+            //create 10 deacon objects
+            //create 100 priest objects
+            // create 100 beaurocrat objects
+            //create 1000 intelligensia objects
+            
+            // create 1000 soldier objects
+            //.train("Soldier" , 1000)
+            //army[0].train("Soldier", 1000);
+            //create 1000 artisans and builders
+            //create 5000 farmers
+            //create 500 slave objects
+            function getRandomArbitrary(min, max) {
+                return Math.round(Math.random() * (max - min) + min);
+            }
+            function randomName() {
+            let nameSize = getRandomArbitrary(3, 12);
+            let nameLetters = "";
+                //console.log(nameSize);
+                // 97 - 122
+                for (i = 0; i < nameSize; i ++) {
+                    let letter = String.fromCharCode(getRandomArbitrary(97, 122));
+                    //console.log("letter: " + letter);
+                    if (i == 0) {
+                        letter = letter.toUpperCase();
+                    }
+                    nameLetters += letter;
+                    //console.log("name: " + nameLetters);
+                }
+                //console.log(nameLetters);
+                return nameLetters;
+            }
+            
+            
+
+            //create physics - 
+            //passage of time
+            //environmental forces (fire, flood, wind, drought, rain, death, life)
+            //resistance/gravity
+            //spells
+            //energy creation/transfer
+
+        </script>
+    </head>
+    <body>
+        
+    </body>
+</html>
